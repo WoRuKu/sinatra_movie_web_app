@@ -11,9 +11,9 @@
     <h2>My Movies</h2>
     
     <ul>
-      <li>movies</li>
-      <li>go</li>
-      <li>here</li>
+      <% @movies.each do |movie| %>
+        <li><%= movie.title %></li>
+      <% end %>
     </ul>
     
     <a href="/movies/new">Add New Movie</a>
