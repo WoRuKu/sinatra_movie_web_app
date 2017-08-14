@@ -1,20 +1,14 @@
 require 'sinatra'
 require 'movie'
+require 'movie_store'
+
+# Create a MovieStore that updates the movies yml file
+store = MovieStore.new('movies.yml')
 
 # Responds to GET requests for "/movies"
 get('/movies') do
-  # Set up an array of movies
-  @movies = []
-  # Set up new Movie objects
-  @movies[0] = Movie.new 
-  @movies[0].title = "Jaws"
-  @movies[1] = Movie.new 
-  @movies[1].title = "Alien "
-  @movies[2] = Movie.new 
-  @movies[2].title = "Terminator"
-  @movies[3] = Movie.new
-  @movies[3].title = "Startrek"
-
+  
+  @movies = store.all
   # Load "views/index.erb"
   erb :index
 end
@@ -24,3 +18,16 @@ get ('/movies/new') do
   erb :new
 end
 
+# Handle POST requests for "/moview/create"
+post ('/movies/create') do
+  @movie = Movie.new
+  # Assign the contents of the form fields to attributes of the objects
+  @movie.title = params['title']
+  @movie.director = params['director'] 
+  @movie.year = params['year']
+  # Save the object
+  store.save(@movie)
+  # Show a new, empty form
+  redirect '/movies/new'
+
+end
