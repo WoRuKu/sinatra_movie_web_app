@@ -6,7 +6,7 @@ require 'movie_store'
 store = MovieStore.new('movies.yml')
 
 # Responds to GET requests for "/movies"
-get('/movies') do
+get ('/movies') do
   
   @movies = store.all
   # Load "views/index.erb"
@@ -29,5 +29,10 @@ post ('/movies/create') do
   store.save(@movie)
   # Show a new, empty form
   redirect '/movies/new'
+end
 
+get ('/movies/:id') do
+  id = params['id'].to_i
+  @movie = store.find(id)
+  erb :show
 end

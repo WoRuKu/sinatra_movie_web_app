@@ -22,6 +22,15 @@ class MovieStore
     end
   end
 
+  # Take an ID to use as a key
+  def find(id)
+    # Needs to be in a transaction
+    @store.transaction do
+      # Return the Movie stored under this key
+      @store[id]
+    end
+  end
+
   # Retrieves all movies in the store
   def all
     # Accessing the store requires a transaction  
