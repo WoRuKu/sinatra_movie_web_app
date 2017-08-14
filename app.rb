@@ -7,7 +7,7 @@ store = MovieStore.new('movies.yml')
 
 # Responds to GET requests for "/movies"
 get ('/movies') do
-  
+  # Load all Movie objects from movies.yml  
   @movies = store.all
   # Load "views/index.erb"
   erb :index
