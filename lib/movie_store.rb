@@ -3,8 +3,8 @@ require 'yaml/store'
 
 class MovieStore
 
+  # Create a store that reads/writes the given file_name
   def initialize(file_name)
-    # Create a store that reads/writes the given file_name
     @store = YAML::Store.new(file_name)
   end
   

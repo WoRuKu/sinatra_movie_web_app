@@ -33,6 +33,9 @@ end
 
 get ('/movies/:id') do
   id = params['id'].to_i
+  # Use the ID to load the movie from the store
   @movie = store.find(id)
+  # Embed the movie in the HTML from show.erb and 
+  # return it to the browser
   erb :show
 end
