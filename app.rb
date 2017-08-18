@@ -5,21 +5,21 @@ require 'movie_store'
 # Create a MovieStore that updates the movies yml file
 store = MovieStore.new('movies.yml')
 
-# Responds to GET requests for "/movies"
-get ('/movies') do
+# Responds to GET requests for "/"
+get ('/') do
   # Load all Movie objects from movies.yml  
   @movies = store.all
   # Load "views/index.erb"
   erb :index
 end
 
-get ('/movies/new') do
+get ('/new') do
   # Load "views/new.erb" 
   erb :new
 end
 
-# Handle POST requests for "/moview/create"
-post ('/movies/create') do
+# Handle POST requests for "/create"
+post ('/create') do
   @movie = Movie.new
   # Assign the contents of the form fields to attributes of the objects
   @movie.title = params['title']
@@ -28,10 +28,10 @@ post ('/movies/create') do
   # Save the object
   store.save(@movie)
   # Show a new, empty form
-  redirect '/movies/new'
+  redirect '/new'
 end
 
-get ('/movies/:id') do
+get ('/:id') do
   id = params['id'].to_i
   # Use the ID to load the movie from the store
   @movie = store.find(id)
